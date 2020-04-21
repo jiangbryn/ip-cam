@@ -59961,7 +59961,7 @@ Peer.channelConfig = {}
 
 module.exports = Peer
 
-},{"debug":"node_modules/debug/src/browser.js","get-browser-rtc":"node_modules/get-browser-rtc/index.js","randombytes":"node_modules/randombytes/browser.js","readable-stream":"node_modules/simple-peer/node_modules/readable-stream/readable-browser.js","queue-microtask":"node_modules/queue-microtask/index.js","buffer":"node_modules/buffer/index.js"}],"helper/simple-peer.js":[function(require,module,exports) {
+},{"debug":"node_modules/debug/src/browser.js","get-browser-rtc":"node_modules/get-browser-rtc/index.js","randombytes":"node_modules/randombytes/browser.js","readable-stream":"node_modules/simple-peer/node_modules/readable-stream/readable-browser.js","queue-microtask":"node_modules/queue-microtask/index.js","buffer":"node_modules/buffer/index.js"}],"helper/VideoCall.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -60053,7 +60053,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _socket = _interopRequireDefault(require("socket.io-client"));
 
-var _simplePeer = _interopRequireDefault(require("../helper/simple-peer"));
+var _VideoCall = _interopRequireDefault(require("../helper/VideoCall"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60100,7 +60100,7 @@ var Video = /*#__PURE__*/function (_React$Component) {
       connecting: false,
       waiting: true
     };
-    _this.videoCall = new _simplePeer.default();
+    _this.videoCall = new _VideoCall.default();
     return _this;
   }
 
@@ -60257,7 +60257,7 @@ var Video = /*#__PURE__*/function (_React$Component) {
 
 var _default = Video;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","socket.io-client":"node_modules/socket.io-client/lib/index.js","../helper/simple-peer":"helper/simple-peer.js"}],"components/VideoPreview.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","socket.io-client":"node_modules/socket.io-client/lib/index.js","../helper/VideoCall":"helper/VideoCall.js"}],"components/VideoPreview.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -60477,7 +60477,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55984" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53343" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

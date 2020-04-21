@@ -1,7 +1,6 @@
 import React from 'react';
-//import '../styles/video.css';
 import io from 'socket.io-client';
-import VideoCall from "../helper/simple-peer";
+import VideoCall from "../helper/VideoCall";
 
 class Video extends React.Component {
     constructor() {
