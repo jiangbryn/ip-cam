@@ -3,8 +3,8 @@ import io from 'socket.io-client';
 import VideoCall from "../helper/VideoCall";
 
 class Video extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             localStream: {},
             remoteStreamUrl: '',
@@ -22,7 +22,7 @@ class Video extends React.Component {
         const socket = io("http://localhost:3000");
         const component = this;
         this.setState({ socket });
-        const { roomId } = "111";
+        const { roomId } = this.props.roomId;
         this.getUserMedia().then(() => {
             socket.emit('join', { roomId: roomId });
         });
@@ -117,6 +117,8 @@ class Video extends React.Component {
                         this.state.connecting || this.state.waiting ? 'hide' : ''
                     }`}
                     id='remoteVideo'
+                    muted
+                    controls
                     ref={video => (this.remoteVideo = video)}
                 />
                 {this.state.connecting && (
@@ -126,7 +128,7 @@ class Video extends React.Component {
                 )}
                 {this.state.waiting && (
                     <div className='status'>
-                        <p>Waiting for someone...</p>
+                        <p>Waiting for remote device...</p>
                     </div>
                 )}
                 {this.renderFull()}

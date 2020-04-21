@@ -1,3 +1,4 @@
 /.idea
 /client/.cache
+/client/node_modules
 .DS_Store
