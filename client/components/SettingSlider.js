@@ -14,10 +14,12 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        margin: 10,
     },
     slider: {
         width: 450,
+        color: 'slategray'
     }
 });
 

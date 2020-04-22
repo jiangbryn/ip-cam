@@ -50,7 +50,7 @@ class MainPage extends React.Component {
                     <Container>
                         <VideoPreview roomId={this.props.match.params}/>
                     </Container>
-                    <Container maxWidth="md">
+                    <Container>
                         <Setting/>
                     </Container>
                 </main>

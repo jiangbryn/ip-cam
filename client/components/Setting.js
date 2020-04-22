@@ -1,32 +1,42 @@
-import Grid from "@material-ui/core/Grid";
+import SaveIcon from '@material-ui/icons/Save';
 import Button from "@material-ui/core/Button";
 import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
 import SettingSlider from "./SettingSlider";
 
 const styles = theme => ({
-    title: {
-        color: 'slategray',
-        fontFamily: 'Futura',
-        fontSize: 40,
-        padding: 60,
-        justifyContent:'center',
-    },
     container: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        backgroundColor: '#ebf0f7',
+        flexWrap: 'wrap',
+        width: '80%',
+    },
+    title: {
+        color: 'slategray',
+        fontFamily: 'Futura',
+        fontSize: 40,
+        margin: 20,
+        justifyContent:'center',
     },
     buttons: {
+        padding: 10,
+    },
+    saveContainer: {
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        padding: 20,
-    }
+    },
+    saveButton: {
+        textTransform: 'none',
+        color: "slategray",
+        margin: 20,
+    },
 });
 
 const focal = [
@@ -75,13 +85,18 @@ class Setting extends React.Component {
     render() {
         const { classes } = this.props;
         return(
-            <Container maxWidth="sm" className={classes.container}>
+            <Container className={classes.container}>
                 <Typography className={classes.title}>
                     Setting
                 </Typography>
                 <div className={classes.buttons}>
                     <SettingSlider marks={focal} max={85} min={28} title="FocalLength"/>
-                    <SettingSlider marks={aperture} max={8.0} min={2.3} title="Aperture"/>
+                    <SettingSlider marks={aperture} max={8.0} min={2.8} title="Aperture"/>
+                    <div className={classes.saveContainer}>
+                        <Button className={classes.saveButton} variant="outlined" endIcon={<SaveIcon/>}>
+                            Save
+                        </Button>
+                    </div>
                 </div>
             </Container>
         );
