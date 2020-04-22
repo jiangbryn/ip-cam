@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import VideoCall from "../helper/VideoCall";
+import '../styles/video.css';
 
 class Video extends React.Component {
     constructor(props) {
@@ -103,22 +104,17 @@ class Video extends React.Component {
     render() {
         return (
             <div className='video-wrapper'>
-                <div className='local-video-wrapper'>
-                    <video
-                        autoPlay
-                        id='localVideo'
-                        muted
-                        ref={video => (this.localVideo = video)}
-                    />
-                </div>
                 <video
                     autoPlay
-                    className={`${
-                        this.state.connecting || this.state.waiting ? 'hide' : ''
-                    }`}
+                    id='localVideo'
+                    muted
+                    ref={video => (this.localVideo = video)}
+                />
+                <video
+                    autoPlay
+                    className='remoteVideo'
                     id='remoteVideo'
                     muted
-                    controls
                     ref={video => (this.remoteVideo = video)}
                 />
                 {this.state.connecting && (

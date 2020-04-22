@@ -4,53 +4,59 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import VideoPreview from "./VideoPreview";
 import Setting from "./Setting";
+import {withStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
     icon: {
-        marginRight: theme.spacing(2),
+        color: 'slategray',
+        padding: 2,
     },
-    content: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(8, 0, 6),
+    barTitle: {
+        color: 'slategray',
+        fontFamily: 'Futura',
     },
     footer: {
-        backgroundColor: theme.palette.background.paper,
-        padding: theme.spacing(6),
-    },
-}));
+        color: 'slategray',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 30,
+        fontSize: 'x-small',
+    }
+});
 
 class MainPage extends React.Component {
     constructor(){
         super();
     }
     render() {
+        const { classes } = this.props;
         return (
             <React.Fragment>
                 <CssBaseline />
-                <AppBar position="relative">
+                <AppBar position="relative" color="default">
                     <Toolbar>
-                        <CameraIcon/>
-                        <Typography variant="h6" color="inherit" noWrap>
+                        <CameraIcon className={classes.icon}/>
+                        <Typography className={classes.barTitle}>
                             ip-cam
                         </Typography>
                     </Toolbar>
                 </AppBar>
                 {/* Hero unit */}
                 <main>
-                    <div>
+                    <Container>
                         <VideoPreview roomId={this.props.match.params}/>
-                    </div>
+                    </Container>
                     <Container maxWidth="md">
                         <Setting/>
                     </Container>
                 </main>
                 {/* Footer */}
                 <footer>
-                    <Typography variant="h6" align="center" gutterBottom>
+                    <Typography className={classes.footer}>
                         This is the end
                     </Typography>
                 </footer>
@@ -59,4 +65,4 @@ class MainPage extends React.Component {
     }
 }
 
-export default MainPage;
+export default withStyles(styles, { withTheme: true })(MainPage);

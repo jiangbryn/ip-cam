@@ -1,0 +1,15 @@
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.status {
+    color: slategray;
+    font-size: 20px;
+}
+#localVideo {
+    display: none;
+}
+
+
