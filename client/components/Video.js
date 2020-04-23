@@ -1,7 +1,23 @@
 import React from 'react';
 import io from 'socket.io-client';
 import VideoCall from "../helper/VideoCall";
-import '../styles/video.css';
+import {withStyles} from "@material-ui/core/styles";
+
+const styles = theme => ({
+    videoWrapper: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+    },
+    status: {
+        color: 'slategray',
+        fontSize: 20,
+    },
+    localVideo: {
+        display: 'none',
+    },
+});
 
 class Video extends React.Component {
     constructor(props) {
@@ -102,10 +118,12 @@ class Video extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <div className='video-wrapper'>
                 <video
                     autoPlay
+                    className={classes.localVideo}
                     id='localVideo'
                     muted
                     ref={video => (this.localVideo = video)}
@@ -118,12 +136,12 @@ class Video extends React.Component {
                     ref={video => (this.remoteVideo = video)}
                 />
                 {this.state.connecting && (
-                    <div className='status'>
+                    <div className={classes.status}>
                         <p>Establishing connection...</p>
                     </div>
                 )}
                 {this.state.waiting && (
-                    <div className='status'>
+                    <div className={classes.status}>
                         <p>Waiting for remote device...</p>
                     </div>
                 )}
@@ -133,4 +151,4 @@ class Video extends React.Component {
     }
 }
 
-export default Video;
+export default withStyles(styles, { withTheme: true })(Video);
