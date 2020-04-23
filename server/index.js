@@ -6,7 +6,6 @@ const path = require('path');
 
 const app = express();
 
-const hostname = 'localhost';
 const port = 3000;
 const filePath = path.resolve(__dirname, '../client/dist');
 
@@ -15,6 +14,7 @@ app.use(cors());
 app.use('/static', express.static(filePath));  //static file
 
 const http_server = http.createServer(app);
+
 const io = socketIO.listen(http_server);//bind socket.io on http server
 
 io.on('connection', function (socket) {
@@ -47,7 +47,5 @@ io.on('connection', function (socket) {
     })
 });
 
-
-
-http_server.listen(port, hostname);
+http_server.listen(port);
 
