@@ -11,12 +11,6 @@ const app = express();
 const port = 3000;
 const filePath = path.resolve(__dirname, '../client/dist');
 
-//https certification
-const options = {
-    key: fs.readFileSync('/root/server.key'),
-    cert: fs.readFileSync('/root/server.crt')
-}
-
 app.use(cors());
 
 app.use('/static', express.static(filePath));  //static file
