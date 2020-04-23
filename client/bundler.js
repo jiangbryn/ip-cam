@@ -18,7 +18,7 @@ process.env.NODE_ENV = 'production';
 const options = {
     outDir: outDir, // The out directory to put the build files in, defaults to dist
     outFile: 'index.html', // The name of the outputFile
-    publicUrl: './', // The url to serve on, defaults to '/'
+    publicUrl: './static', // The url to serve on, defaults to '/'
     watch: false, // Whether to watch the files and rebuild them on change, defaults to process.env.NODE_ENV !== 'production'
     cache: false, // Enabled or disables caching, defaults to true
     // cacheDir: '.cache', // The directory cache gets put in, defaults to .cache
