@@ -14,6 +14,9 @@ const filePath = path.resolve(__dirname, '../client/dist');
 app.use(cors());
 
 app.use('/static', express.static(filePath));  //static file
+app.get('/ip-cam', function (request, response){
+    response.sendFile(path.resolve(filePath, 'index.html'))
+});
 
 const http_server = http.createServer(app);
 const https_server = https.createServer({
