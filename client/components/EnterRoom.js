@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles({
     container: {
@@ -27,7 +28,7 @@ const goToRoom = (history, roomId) => {
     history.push(`/${roomId}`)
 }
 
-export function EnterRoom({history}) {
+function EnterRoomComponent({history}) {
     let [roomId, setRoomId] = useState();
     const classes = useStyles();
     return (
@@ -42,3 +43,5 @@ export function EnterRoom({history}) {
             </form>
         </div>)
 }
+
+export const EnterRoom = withRouter(EnterRoomComponent);
