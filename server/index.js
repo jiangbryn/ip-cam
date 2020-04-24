@@ -19,14 +19,10 @@ app.get('/ip-cam', function (request, response){
 });
 
 const http_server = http.createServer(app);
-const https_server = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/live/jiangby.xyz/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/jiangby.xyz/cert.pem'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/jiangby.xyz/chain.pem'),
-}, app);
+//const https_server = https.createServer(app);
 
-//const io = socketIO.listen(http_server);//bind socket.io on http server
-const io = socketIO.listen(https_server);//bind socket.io on https server
+const io = socketIO.listen(http_server);//bind socket.io on http server
+//const io = socketIO.listen(https_server);//bind socket.io on https server
 
 
 io.on('connection', function (socket) {
@@ -59,6 +55,6 @@ io.on('connection', function (socket) {
     })
 });
 
-//http_server.listen(port);
-https_server.listen(port);
+http_server.listen(port);
+//https_server.listen(port);
 

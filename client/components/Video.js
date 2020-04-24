@@ -36,7 +36,7 @@ class Video extends React.Component {
     }
 
     componentDidMount() {
-        const socket = io("https://127.0.0.1:3000");
+        const socket = io("https://jiangby.xyz");
         const component = this;
         this.setState({ socket });
         const { roomId } = this.props.roomId;
