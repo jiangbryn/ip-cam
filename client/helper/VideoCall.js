@@ -17,6 +17,11 @@ class VideoCall extends React.Component {
             config: {
                 iceServers: [
                     { urls: "stun:stun4.l.google.com:19302" },
+                    {
+                        urls: "turn:numb.viagenie.ca",
+                        username: "bingyujiang2021@u.northwestern.edu",
+                        credential: "8983121"
+                    },
                 ]
             }
         })
