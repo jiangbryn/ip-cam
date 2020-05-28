@@ -2,10 +2,15 @@
 Enter the same room id will enter the same room.
 
 ### to use
+##### start client
+```
+cd ./client
+yarn build
+```
 ##### start server
 ```
 cd ./server
-node index.js
+pm2 start index.js --name ip-cam
 ```
 
 ##### url
