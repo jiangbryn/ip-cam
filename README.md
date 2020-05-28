@@ -1,8 +1,19 @@
-# a useless README for ip-cam
+# ip-cam
 Enter the same room id will enter the same room.
 
 ### to use
-##### start client
+
+##### setting server
+```
+// for the nginx setting
+// https://gist.github.com/bradtraversy/cd90d1ed3c462fe3bddd11bf8953a896
+sudo apt install nodejs
+sudo apt install nginx
+npm install -g yarn
+npm install -g parcel-bundler
+```
+
+##### build client
 ```
 cd ./client
 yarn build
@@ -14,4 +25,4 @@ pm2 start index.js --name ip-cam
 ```
 
 ##### url
-localhost:3000/ip-cam
+https://jiangby.xyz/ip-cam
