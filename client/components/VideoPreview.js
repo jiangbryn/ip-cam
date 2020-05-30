@@ -43,7 +43,7 @@ class VideoPreview extends React.Component {
                     Video Preview
                 </Typography>
                 <div className={classes.video}>
-                    <Video roomId={this.props.roomId}/>
+                    <Video roomId={this.props.roomId} socket={this.props.socket}/>
                 </div>
                 <Button className={classes.button} variant="outlined" endIcon={<SendIcon/>}>
                     Screenshot

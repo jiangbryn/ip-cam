@@ -79,11 +79,22 @@ const aperture = [
 
 
 class Setting extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        this.socket = this.props.socket;
     }
+    componentDidMount() {
+        this.socket.on('receiveSetting', (data) => {
+            console.log(data);
+        })
+    }
+
     render() {
         const { classes } = this.props;
+        const handleSave = () => {
+            this.socket.emit('setting', { setting1 : 'aaa'});
+            console.log('sentsetting')
+        };
         return(
             <Container className={classes.container}>
                 <Typography className={classes.title}>
@@ -93,7 +104,7 @@ class Setting extends React.Component {
                     <SettingSlider marks={focal} max={85} min={28} title="FocalLength"/>
                     <SettingSlider marks={aperture} max={8.0} min={2.8} title="Aperture"/>
                     <div className={classes.saveContainer}>
-                        <Button className={classes.saveButton} variant="outlined" endIcon={<SaveIcon/>}>
+                        <Button className={classes.saveButton} variant="outlined" endIcon={<SaveIcon/>} onClick={handleSave}>
                             Save
                         </Button>
                     </div>

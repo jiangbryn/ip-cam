@@ -50,7 +50,7 @@ class Video extends React.Component {
 
     componentDidMount() {
         this.pc = new RTCPeerConnection(pc_config)
-        this.socket = io.connect('http://192.168.1.72:3000')
+        this.socket = this.props.socket
         const { roomId } = this.props.roomId;
 
         this.socket.on('init', () => {
@@ -99,7 +99,7 @@ class Video extends React.Component {
         //   this.remoteVideoref.current.srcObject = e.stream
         // }
         this.pc.ontrack = (e) => {
-            debugger
+            // debugger
             this.remoteVideoref.current.srcObject = e.streams[0]
         }
 

@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import VideoPreview from "./VideoPreview";
 import Setting from "./Setting";
 import {withStyles} from "@material-ui/core/styles";
+import io from "socket.io-client";
 
 const styles = theme => ({
     icon: {
@@ -34,6 +35,7 @@ class MainPage extends React.Component {
     }
     render() {
         const { classes } = this.props;
+        const socket = io.connect('http://192.168.1.72:3000');
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -48,10 +50,10 @@ class MainPage extends React.Component {
                 {/* Hero unit */}
                 <main>
                     <Container>
-                        <VideoPreview roomId={this.props.match.params}/>
+                        <VideoPreview roomId={this.props.match.params} socket={socket}/>
                     </Container>
                     <Container>
-                        <Setting/>
+                        <Setting socket={socket}/>
                     </Container>
                 </main>
                 {/* Footer */}
