@@ -1,12 +1,12 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from "@material-ui/core/Container";
-import { makeStyles } from '@material-ui/core/styles';
+import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Video from "./Video";
 import SendIcon from '@material-ui/icons/Send';
 
-const useStyles = makeStyles({
+const styles = theme => ({
     container: {
         display: 'flex',
         justifyContent: 'center',
@@ -31,21 +31,26 @@ const useStyles = makeStyles({
     }
 });
 
-const VideoPreview = ({roomId}) => {
-    const classes = useStyles();
-    return (
-        <Container maxWidth="sm" className={classes.container}>
-            <Typography className={classes.title}>
-                Video Preview
-            </Typography>
-            <div className={classes.video}>
-                <Video roomId={roomId}/>
-            </div>
-            <Button className={classes.button} variant="outlined" endIcon={<SendIcon/>}>
-                Screenshot
-            </Button>
-        </Container>
-    );
-};
+class VideoPreview extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    render() {
+        const { classes } = this.props;
+        return (
+            <Container maxWidth="sm" className={classes.container}>
+                <Typography className={classes.title}>
+                    Video Preview
+                </Typography>
+                <div className={classes.video}>
+                    <Video roomId={this.props.roomId}/>
+                </div>
+                <Button className={classes.button} variant="outlined" endIcon={<SendIcon/>}>
+                    Screenshot
+                </Button>
+            </Container>
+        );
+    }
+}
 
-export default VideoPreview;
+export default withStyles(styles, { withTheme: true })(VideoPreview);
