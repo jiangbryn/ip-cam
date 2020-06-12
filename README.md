@@ -26,3 +26,25 @@ pm2 start index.js --name ip-cam
 
 ##### url
 https://jiangby.xyz/ip-cam
+
+### run local
+#### build server
+```
+cd ./server
+npm install
+```
+#### build client
+```
+cd ./client
+yarn build
+```
+#### run server
+```
+cd ./server
+node index.js
+```
+#### run client
+```
+cd ./client
+yarn start
+```
