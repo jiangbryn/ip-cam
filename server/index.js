@@ -1,8 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const https = require('https');
-const fs = require('fs');
 const socketIO = require('socket.io');
 const path = require('path');
 
@@ -29,20 +27,14 @@ io.on('connection', function (socket) {
     socket.join(data.roomId);
     socket.room = data.roomId;
     const sockets = io.of('/').in().adapter.rooms[data.roomId];
-    if(sockets.length===1){
+    if (sockets.length === 1){
       socket.emit('init')
       console.log('init')
-    }else{
-      if (sockets.length===2){
+    } else {
+      if (sockets.length >= 2){
         io.to(data.roomId).emit('ready')
         console.log('ready')
-      }else{
-        socket.room = null
-        socket.leave(data.roomId)
-        socket.emit('full')
-        console.log('init')
       }
-
     }
   })
 
@@ -64,7 +56,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', () => {
-    const roomId = Object.keys(socket.adapter.rooms)[0]
+    // const roomId = Object.keys(socket.adapter.rooms)[0]
     if (socket.room){
       io.to(socket.room).emit('disconnected')
     }

@@ -35,7 +35,8 @@ class MainPage extends React.Component {
     }
     render() {
         const { classes } = this.props;
-        const socket = io.connect('http://192.168.1.72:3000');
+        // To use ios app, it should connect to the ip addr of computer
+        const socket = io.connect('http://localhost:3000');
         return (
             <React.Fragment>
                 <CssBaseline />
