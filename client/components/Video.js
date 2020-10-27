@@ -1,7 +1,8 @@
 import React from 'react';
-import io from 'socket.io-client';
 import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
+import Container from "@material-ui/core/Container";
 
 const styles = theme => ({
     videoWrapper: {
@@ -10,6 +11,13 @@ const styles = theme => ({
         alignItems: 'center',
         flexDirection: 'column',
     },
+    buttons: {
+        margin: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
     status: {
         color: 'slategray',
         fontSize: 20,
@@ -17,6 +25,11 @@ const styles = theme => ({
     localVideo: {
         display: 'none',
     },
+    button: {
+        textTransform: 'none',
+        color: "slategray",
+        margin: 20,
+    }
 });
 
 const pc_config = {
@@ -57,7 +70,6 @@ class Video extends React.Component {
     }
 
     componentDidMount() {
-        // this.pc = new RTCPeerConnection(pc_config)
         this.socket = this.props.socket
 
         this.socket.on('init', () => {
@@ -190,11 +202,12 @@ class Video extends React.Component {
 
     render() {
         const { classes } = this.props
-        console.log(this.pc)
         const handleConnect = () => {
             if (this.state.connected === false) {
                 this.setState({connected: true});
                 this.setupPC();
+                this.socket.emit('reconnect');
+                console.log(this.pc);
             } else {
                 this.setState({connected: false});
                 this.pc.close();
@@ -203,8 +216,11 @@ class Video extends React.Component {
                 this.socket.emit('close');
             }
         };
+        const handlePhoto = () => {
+            this.socket.emit('takePhoto');
+        }
         return (
-            <div className='video-wrapper'>
+            <Container className='video-wrapper'>
                 <video
                     autoPlay
                     className={classes.localVideo}
@@ -219,13 +235,23 @@ class Video extends React.Component {
                     muted
                     ref={this.remoteVideoref}
                 />
-                <Button className={classes.button} variant="outlined" onClick={handleConnect}>
-                    {this.renderButton()}
-                </Button>
                 <div className={classes.status}>
                     {this.renderStatusDesc()}
                 </div>
-            </div>
+                <div className={classes.buttons}>
+                    <Button className={classes.button}
+                            variant="outlined"
+                            onClick={handleConnect}>
+                        {this.renderButton()}
+                    </Button>
+                    <Button className={classes.button}
+                            variant="outlined"
+                            onClick={handlePhoto}
+                            endIcon={<SendIcon/>}>
+                        Take Photo
+                    </Button>
+                </div>
+            </Container>
         )
     }
 }

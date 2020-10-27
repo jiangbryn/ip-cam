@@ -6,7 +6,6 @@ import Slider from "@material-ui/core/Slider";
 const styles = theme => ({
     title: {
         color: 'slategray',
-        fontFamily: 'Futura',
         fontSize: 20,
         justifyContent:'center',
     },
@@ -24,12 +23,22 @@ const styles = theme => ({
 });
 
 
-class SettingSlider extends React.Component {
+class ExpoSlider extends React.Component {
     constructor(props){
         super(props);
     }
     render() {
         const { classes } = this.props;
+        const handleChange = (event, newValue) => {
+            newValue === 0 ?
+              this.props.setParentState(-1) : this.props.setParentState(newValue/100)
+        };
+        const valueLabelFormat = (value) => {
+            if (value === 0) {
+                return -1;
+            }
+            return value/100;
+        }
         return(
             <div className={classes.container}>
                 <Typography className={classes.title} gutterBottom>
@@ -38,16 +47,15 @@ class SettingSlider extends React.Component {
                 <Slider
                     className={classes.slider}
                     defaultValue={this.props.min}
-                    aria-labelledby="slider-aperture"
-                    step={null}
                     valueLabelDisplay="auto"
-                    marks={this.props.marks}
+                    valueLabelFormat={valueLabelFormat}
                     min={this.props.min}
                     max={this.props.max}
+                    onChange={handleChange}
                 />
             </div>
         );
     }
 }
 
-export default withStyles(styles, { withTheme: true })(SettingSlider);
+export default withStyles(styles, { withTheme: true })(ExpoSlider);

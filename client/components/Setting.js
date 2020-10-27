@@ -4,7 +4,8 @@ import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import SettingSlider from "./SettingSlider";
+import SettingSlider from "./ExpoSlider";
+import SettingSwitch from "./SettingSwitch";
 
 const styles = theme => ({
     container: {
@@ -25,6 +26,11 @@ const styles = theme => ({
     },
     buttons: {
         padding: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
     },
     saveContainer: {
         display: 'flex',
@@ -39,48 +45,14 @@ const styles = theme => ({
     },
 });
 
-const focal = [
-    {
-        value: 28,
-        label: '28mm',
-    },
-    {
-        value: 35,
-        label: '35mm',
-    },
-    {
-        value: 50,
-        label: '50mm',
-    },
-    {
-        value: 85,
-        label: '85mm',
-    },
-];
-
-const aperture = [
-    {
-        value: 2.8,
-        label: 'f/2.8',
-    },
-    {
-        value: 4.0,
-        label: 'f/4.0',
-    },
-    {
-        value: 5.6,
-        label: 'f/5.6',
-    },
-    {
-        value: 8.0,
-        label: 'f/8.0',
-    },
-];
-
-
 class Setting extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            flash: false,
+            isFront: false,
+            expoTime: -1,
+        }
         this.socket = this.props.socket;
     }
     componentDidMount() {
@@ -89,20 +61,49 @@ class Setting extends React.Component {
         })
     }
 
+    setFlash(flash) {
+        this.setState({flash});
+    }
+
+    setFrontCamera(isFront) {
+        this.setState({isFront});
+    }
+
+    setExpoTime(expoTime) {
+        this.setState({expoTime});
+    }
+
     render() {
         const { classes } = this.props;
+
         const handleSave = () => {
-            this.socket.emit('setting', { setting1 : 'aaa'});
-            console.log('sentsetting')
+            this.socket.emit('setting', {
+                flash : this.state.flash,
+                isFront : this.state.isFront,
+                expoTime: this.state.expoTime
+            });
+            console.log('sent settings')
         };
+
         return(
             <Container className={classes.container}>
                 <Typography className={classes.title}>
                     Setting
                 </Typography>
                 <div className={classes.buttons}>
-                    <SettingSlider marks={focal} max={85} min={28} title="FocalLength"/>
-                    <SettingSlider marks={aperture} max={8.0} min={2.8} title="Aperture"/>
+                    <SettingSlider max={100}
+                                   min={0}
+                                   title="Exposure Time"
+                                   setParentState={expoTime => this.setExpoTime(expoTime)}
+                    />
+                    <SettingSwitch on={'Flash On'}
+                                   off={'Flash Off'}
+                                   setParentState={flash => this.setFlash(flash)}
+                    />
+                    <SettingSwitch on={'Front Camera'}
+                                   off={'Back Camera'}
+                                   setParentState={isFront => this.setFrontCamera(isFront)}
+                    />
                     <div className={classes.saveContainer}>
                         <Button className={classes.saveButton} variant="outlined" endIcon={<SaveIcon/>} onClick={handleSave}>
                             Save
