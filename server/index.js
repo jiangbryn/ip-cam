@@ -55,6 +55,11 @@ io.on('connection', function (socket) {
     console.log(data)
   })
 
+  socket.on('takePhoto', (data) => {
+    io.to(socket.room).emit('takePhoto')
+    console.log('takePhoto')
+  })
+
   socket.on('disconnect', () => {
     // const roomId = Object.keys(socket.adapter.rooms)[0]
     if (socket.room){
