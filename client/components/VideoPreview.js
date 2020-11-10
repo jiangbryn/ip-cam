@@ -2,9 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from "@material-ui/core/Container";
 import {withStyles} from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Video from "./Video";
-import SendIcon from '@material-ui/icons/Send';
 
 const styles = theme => ({
     container: {
@@ -45,9 +43,6 @@ class VideoPreview extends React.Component {
                 <div className={classes.video}>
                     <Video roomId={this.props.roomId} socket={this.props.socket}/>
                 </div>
-                <Button className={classes.button} variant="outlined" endIcon={<SendIcon/>}>
-                    Screenshot
-                </Button>
             </Container>
         );
     }
