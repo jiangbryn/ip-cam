@@ -161,7 +161,6 @@ class Video extends React.Component {
 
     createOffer() {
         console.log('Offer')
-
         // initiates the creation of SDP
         this.pc.createOffer({ offerToReceiveVideo: 1 })
             .then(sdp => {
@@ -210,12 +209,11 @@ class Video extends React.Component {
         const { classes } = this.props
         const handleConnect = () => {
             if (this.state.connected === false) {
-                this.setState({connected: true});
+                this.setState({connected: true, initiator: true});
                 this.setupPC();
                 this.socket.emit('reconnect');
-                console.log(this.pc);
             } else {
-                this.setState({connected: false});
+                this.setState({connected: false, initiator: false});
                 this.pc.close();
                 this.pc = null;
                 this.releaseStream();
