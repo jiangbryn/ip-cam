@@ -33,6 +33,11 @@ class VideoPreview extends React.Component {
     constructor(props){
         super(props);
     }
+    componentDidMount() {
+        const { roomId } = this.props.roomId
+        this.props.socket.emit('join', { roomId: roomId })
+    }
+
     render() {
         const { classes } = this.props;
         return (
