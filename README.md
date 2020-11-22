@@ -88,7 +88,7 @@ The server is developed based on Express.js. Express is a minimal and flexible N
 
 The main responsibility of the server is to provide communication services. For this, Socket.IO is used here. Socket.IO is a library that enables real-time, bidirectional, and event-based communication between the browser and the server. In Socket.IO, all communications are based on the concept of the room, which is very suitable for our project. Socket objects can send messages to anyone in the same room and all the room are independent. Using that we can run multiple services for different purposes. We can also easily extend our system to provide functions like a web page to control multiple devices or multiple web pages to monitor one device.
 
-The server listens to some important messages, like `join`, `candidate` and `offerOrAnswer`. The following table describes the socket message the server monitor and the operation it will do.
+The server listens to some important messages, like `join`, `on-connect` and `offer-or-answer`. The following table describes the socket message the server monitor and the operation it will do.
 
 
 <table>
@@ -101,11 +101,17 @@ The server listens to some important messages, like `join`, `candidate` and `off
   <tr>
    <td>join
    </td>
-   <td>Check the number of sockets in the room and emit the corresponding message to the front-end
+   <td>Check the number of sockets in the room and log the corresponding message
    </td>
   </tr>
   <tr>
-   <td>offerOrAnswer
+   <td>on-connect
+   </td>
+   <td>Specify caller and callee. If both caller and callee are specified, emit “established”
+   </td>
+  </tr>
+  <tr>
+   <td>offer-or-answer
    </td>
    <td>Log the SDP data and emit the data to the others in that room
    </td>
@@ -120,6 +126,18 @@ The server listens to some important messages, like `join`, `candidate` and `off
    <td>setting
    </td>
    <td>Log the camera settings and emit the settings to the ios app
+   </td>
+  </tr>
+  <tr>
+   <td>take-photo
+   </td>
+   <td>Emit a message to the ios app to take photos
+   </td>
+  </tr>
+  <tr>
+   <td>close
+   </td>
+   <td>Emit a message to others in the room to pause streaming and release the camera
    </td>
   </tr>
   <tr>
