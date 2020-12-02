@@ -91,10 +91,11 @@ io.on('connection', function (socket) {
   socket.on('upload', (data) => {
     const base64Data = data.base64;
     let dataBuffer = new Buffer(base64Data, 'base64');
-    fs.writeFile(`../${imgIndex}.png`, dataBuffer, function(err) {
+    fs.writeFile(`../results/${imgIndex}.png`, dataBuffer, function(err) {
       if(err){
         console.log(`save img failed: ${err}`)
       }else{
+        imgIndex++
         console.log(`img saved`)
       }
     });
