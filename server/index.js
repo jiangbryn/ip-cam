@@ -3,6 +3,7 @@ const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -25,6 +26,7 @@ http_server.listen(port, '0.0.0.0');
 let offerSocket = null;
 let onConnectNum = 0;
 let socketsLength = 0;
+let imgIndex = 0;
 
 io.on('connection', function (socket) {
   socket.on('join', function (data) {
@@ -84,6 +86,19 @@ io.on('connection', function (socket) {
   socket.on('take-photo', () => {
     socket.to(socket.room).emit('take-photo')
     console.log('take-photo')
+  })
+
+  socket.on('upload', (data) => {
+    const base64Data = data.base64;
+    let dataBuffer = new Buffer(base64Data, 'base64');
+    fs.writeFile(`../results/${imgIndex}.png`, dataBuffer, function(err) {
+      if(err){
+        console.log(`save img failed: ${err}`)
+      }else{
+        imgIndex++
+        console.log(`img saved`)
+      }
+    });
   })
 
   socket.on('disconnect', () => {

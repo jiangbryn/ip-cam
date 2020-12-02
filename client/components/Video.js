@@ -79,6 +79,8 @@ class Video extends React.Component {
         });
 
         this.socket.on('established', () => {
+            console.log('established');
+            // console.log(`established: is the ${this.initiator ? 'caller' : 'callee'}`)
             if (this.initiator) {
                 this.createOffer();
             }
